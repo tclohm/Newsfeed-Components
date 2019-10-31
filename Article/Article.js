@@ -85,6 +85,15 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Functional Programming: The Benefits and Costs',
+    date: 'Oct 30th, 2019',
+    firstParagraph: `Map Reduce Filter. Map Reduce Filter. Map Reduce Filter. Map Reduce Filter. Map Reduce Filter. Map Reduce Filter. Map Reduce Filter. Map Reduce Filter. Map Reduce Filter. Map Reduce Filter. Map Reduce Filter. Map Reduce Filter. Map Reduce Filter. Map Reduce Filter. Map Reduce Filter. Map Reduce Filter. Map Reduce Filter. Map Reduce Filter. Map Reduce Filter. Map Reduce Filter. Map Reduce Filter. `,
+
+    secondParagraph: `Haskal, Ruby, Swift, Kotlin, OH MY! Haskal, Ruby, Swift, Kotlin, OH MY! Haskal, Ruby, Swift, Kotlin, OH MY! Haskal, Ruby, Swift, Kotlin, OH MY! Haskal, Ruby, Swift, Kotlin, OH MY! Haskal, Ruby, Swift, Kotlin, OH MY! Haskal, Ruby, Swift, Kotlin, OH MY! Haskal, Ruby, Swift, Kotlin, OH MY! Haskal, Ruby, Swift, Kotlin, OH MY! Haskal, Ruby, Swift, Kotlin, OH MY! Haskal, Ruby, Swift, Kotlin, OH MY! Haskal, Ruby, Swift, Kotlin, OH MY! Haskal, Ruby, Swift, Kotlin, OH MY! Haskal, Ruby, Swift, Kotlin, OH MY! Haskal, Ruby, Swift, Kotlin, OH MY! Haskal, Ruby, Swift, Kotlin, OH MY! Haskal, Ruby, Swift, Kotlin, OH MY!`,
+
+    thirdParagraph: `No one will read this. No one will read this. No one will read this. No one will read this. No one will read this. No one will read this. No one will read this. No one will read this. No one will read this. No one will read this. No one will read this. No one will read this. No one will read this. No one will read this. No one will read this. No one will read this. No one will read this. No one will read this. No one will read this. No one will read this. No one will read this. No one will read this. `
   }
 ];
 
@@ -112,3 +121,48 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+function createArticle(props) {
+
+  const createElement = (element) => { return document.createElement(element); }
+
+  const article = createElement("div");
+  const articleH2 = createElement("h2");
+  const articleParagraphDate = createElement("p");
+  const articleThreeParagraphArray = [1, 2, 3].map( () => { return createElement("p"); });
+  const articleOne = articleThreeParagraphArray[0];
+  const articleTwo = articleThreeParagraphArray[1];
+  const articleThree = articleThreeParagraphArray[2];
+  const articleSpan = createElement("span");
+
+  article.classList.add("article", "close");
+  articleParagraphDate.classList.add("date");
+  articleSpan.classList.add("expandButton");
+
+  articleH2.textContent = props.title;
+  articleParagraphDate.textContent = props.date;
+  articleOne.textContent = props.firstParagraph;
+  articleTwo.textContent = props.secondParagraph;
+  articleThree.textContent = props.thirdParagraph;
+  articleSpan.textContent = "Open";
+
+  articleSpan.addEventListener("click", () => {
+    article.classList.toggle("article-open");
+    article.classList.toggle("close");
+    articleSpan.textContent === "Open" ? articleSpan.textContent = "Close" : articleSpan.textContent = "Open"
+  });
+
+  [articleH2, articleParagraphDate, articleOne, articleTwo, articleThree, articleSpan].map( (element) => {
+    article.appendChild(element);
+  });
+
+  return article;
+
+}
+
+const articles = document.querySelector(".articles");
+
+data.map( (content) => {
+  const newArticle = createArticle(content);
+  articles.appendChild(newArticle);
+})
