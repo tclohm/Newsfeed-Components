@@ -51,7 +51,13 @@ function createMenu(props) {
   
   const menuButton = document.querySelector(".menu-button");
   menuButton.addEventListener("click", () => {
-    menu.classList.toggle("menu--open");
+    if (!menu.classList.contains("menu--open")) {
+      TweenMax.from(".menu", 0.5, {opacity: 0, scale: 0, ease: Back.easeOut, });
+      menu.classList.add("menu--open")
+    } else {
+      TweenMax.to(".menu", 0.5, {x: 0, ease: Bounce.easeOut,});
+      menu.classList.remove("menu--open")
+    }
   });
 
   return menu;
@@ -60,3 +66,5 @@ function createMenu(props) {
 const header = document.querySelector(".header");
 const menu = createMenu(menuItems);
 header.appendChild(menu);
+
+
